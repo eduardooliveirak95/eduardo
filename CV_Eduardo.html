@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Eduardo Oliveira | CV</title>
+
+  <!-- Fonte Google -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      margin: 0;
+      padding: 40px 20px;
+      color: #333;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 40px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 30px;
+      margin-bottom: 30px;
+    }
+
+    .profile-pic {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 4px solid #2c5364;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 2.2rem;
+      color: #0f2027;
+    }
+
+    .subtitle {
+      font-weight: 500;
+      color: #555;
+      margin: 8px 0 12px;
+    }
+
+    .links a {
+      text-decoration: none;
+      color: #2c5364;
+      font-weight: 600;
+      margin-right: 15px;
+    }
+
+    .links a:hover {
+      text-decoration: underline;
+    }
+
+    section {
+      margin-bottom: 30px;
+    }
+
+    h2 {
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+      color: #203a43;
+      border-left: 4px solid #2c5364;
+      padding-left: 10px;
+    }
+
+    p {
+      line-height: 1.6;
+      color: #444;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    li {
+      margin-bottom: 8px;
+    }
+
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .skill {
+      background: #2c5364;
+      color: white;
+      padding: 8px 14px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.85rem;
+      color: #777;
+      margin-top: 40px;
+    }
+
+    @media (max-width: 600px) {
+      header {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <header>
+      <img src="foto.jpg" alt="Foto de Eduardo Oliveira" class="profile-pic">
+
+      <div>
+        <h1>Eduardo Oliveira</h1>
+        <div class="subtitle">Telecommunications Engineer</div>
+        <div class="links">
+          <a href="mailto:eduardooliveira1995@gmail.com">📧 Email</a>
+          <a href="https://www.linkedin.com/in/eduardo-oliveira-495a42141/" target="_blank">🔗 LinkedIn</a>
+        </div>
+      </div>
+    </header>
+
+    <section>
+      <h2>About Me</h2>
+      <p>
+        I am a 30-year-old Electrical and Computer Engineering graduate from the Polytechnic Institute of Setúbal.
+        I have over five years of experience working in the telecommunications sector.
+        In my free time, I enjoy practicing sports and playing video games.
+      </p>
+    </section>
+
+    <section>
+  <h2>Experience</h2>
+
+  <div>
+    <h3>Capgemini Engineering — Junior Telecommunications Engineer (02/2021 – 05/2022)</h3>
+    <p><strong>Project NOS Portugal (Planning Scope):</strong></p>
+    <ul>
+      <li>Planning of PCI/RSI, Scrambling Codes, BCCH's, HSN and MAIO</li>
+      <li>Neighborhood relations and optimization of network parameters</li>
+      <li>Adjustments in existing network to meet customer KPI targets</li>
+    </ul>
+    <p><strong>Project TTN Denmark (Events Scope):</strong></p>
+    <ul>
+      <li>Plans creation with parameter changes for events and rollbacks</li>
+      <li>KPI reports creation and analysis before, during, and after events</li>
+    </ul>
+  </div>
+
+  <div>
+    <h3>Nowo Portugal — Telecommunications Engineer (TV & HFC) (05/2022 – Present)</h3>
+    <ul>
+      <li>Implementation, integration, and maintenance of TV and Radio channels across the network</li>
+      <li>Quality assurance of STB software and firmware, including testing, validation, and issue reporting</li>
+      <li>CDN management and optimization using Broadpeak solutions</li>
+      <li>Operation and management of HFC networks under Remote PHY architecture</li>
+      <li>Daily work with Linux-based systems for TV platforms, troubleshooting, monitoring, and operational tasks</li>
+      <li>Collaboration with multiple vendors and technologies in multi-vendor environments</li>
+    </ul>
+    <p><strong>Technologies & Vendors:</strong> Arista, Juniper, Cisco, Huawei, AWS Elemental, Harmonic, Tandberg, Arris, Broadpeak</p>
+  </div>
+</section>
+
+
+    <section>
+      <h2>Skills</h2>
+      <div class="skills">
+        <span class="skill">Telecommunications</span>
+        <span class="skill">Networking</span>
+        <span class="skill">TV</span>
+        <span class="skill">HFC</span>
+        <span class="skill">Linux</span>
+		<span class="skill">Python</span>
+      </div>
+    </section>
+
+    <footer>
+      © 2026 — Eduardo Oliveira
+    </footer>
+
+  </div>
+
+</body>
+</html>
