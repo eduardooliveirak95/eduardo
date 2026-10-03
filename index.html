@@ -499,52 +499,145 @@
       .dates { white-space: normal; }
     }
 
-    /* ---------- Print / PDF ---------- */
+    /* ---------- Print / PDF: plain one-column CV, no photo ---------- */
 
-    @page { size: A4; margin: 14mm 14mm 12mm; }
+    .print-only { display: none; }
+
+    @page { size: A4; margin: 12mm 16mm; }
 
     @media print {
       :root,
       :root[data-theme="dark"],
-      :root:not([data-theme="light"]) {
-        --bg: #ffffff;
-        --surface: #ffffff;
-        --text: #0f172a;
-        --text-soft: #1e293b;
-        --muted: #475569;
-        --border: #dbe1e8;
-        --accent: #0b5cad;
-        --accent-soft: #e8f1fb;
-        --chip: #f1f5f9;
-        --ms: #0078d4;
-        --aws: #ff9900;
-        color-scheme: light;
+      :root:not([data-theme="light"]) { color-scheme: light; }
+
+      body {
+        background: #fff;
+        color: #000;
+        font-family: "Times New Roman", Times, "Liberation Serif", "Nimbus Roman", serif;
+        font-size: 10pt;
+        line-height: 1.25;
       }
-      body { font-size: 10.5pt; line-height: 1.45; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      a { color: inherit; text-decoration: none; }
+
+      .print-only { display: revert; }
+      .screen-only, .skip, .avatar, .actions, .tagline, .contact svg, .foot,
+      .duration, .cert-top, .level, section[aria-labelledby="interests-title"] { display: none !important; }
+
       .page { max-width: none; padding: 0; }
-      .sheet { border: 0; border-radius: 0; box-shadow: none; padding: 0; animation: none; }
-      .actions, .skip, .foot .updated { display: none; }
-      .hero { padding-bottom: 18px; gap: 20px; }
-      .avatar { width: 96px; height: 96px; box-shadow: 0 0 0 1.5px var(--accent); }
-      .block { grid-template-columns: 130px 1fr; gap: 16px; padding: 14px 0; }
-      .cert:hover { transform: none; box-shadow: none; }
-      .certs { grid-template-columns: repeat(3, 1fr); gap: 10px; }
-      .cert { padding: 12px 12px 10px; gap: 6px; border-radius: 10px; }
-      .cert h3 { font-size: 10pt; }
-      .cert, .project, .skill-group, .edu, ul.points li { break-inside: avoid; }
-      .job-head { break-inside: avoid; break-after: avoid; }
-      .job + .job { margin-top: 18px; }
-      .project { margin-top: 10px; }
-      ul.points { margin-top: 6px; }
-      ul.points li { margin-bottom: 2px; }
-      .stack { margin-top: 10px; }
-      .skill-groups { grid-template-columns: 1fr; gap: 8px; }
-      .skill-group { display: grid; grid-template-columns: 165px 1fr; gap: 12px; align-items: baseline; }
-      .skill-group h3 { margin: 0; font-size: 9.5pt; }
-      .chips { gap: 4px; }
-      .chips li { padding: 1px 8px; font-size: 8pt; }
-      .contact a[data-print]::after { content: " (" attr(data-print) ")"; font-weight: 400; color: var(--muted); }
-      a { color: inherit; }
+      .sheet {
+        display: flex;
+        flex-direction: column;
+        padding: 0;
+        border: 0;
+        border-radius: 0;
+        background: none;
+        box-shadow: none;
+        animation: none;
+      }
+
+      /* Classic CV order */
+      .hero { order: 0; }
+      section[aria-labelledby="profile-title"] { order: 1; }
+      section[aria-labelledby="certs-title"] { order: 2; }
+      section[aria-labelledby="skills-title"] { order: 3; }
+      section[aria-labelledby="experience-title"] { order: 4; }
+      section[aria-labelledby="education-title"] { order: 5; }
+      section[aria-labelledby="languages-title"] { order: 6; }
+
+      /* Header */
+      .hero { display: block; padding: 0; text-align: center; }
+      h1 { font-size: 19pt; line-height: 1.15; letter-spacing: .02em; text-transform: uppercase; }
+      .headline { margin: 3pt 0 0; font-size: 12.5pt; font-weight: 400; color: #000; }
+      .contact { display: block; margin: 5pt 0 0; font-size: 9.5pt; color: #000; }
+      .contact li { display: inline; }
+      .contact li + li::before { content: " | "; }
+      .contact li.contact-links::before { content: ""; display: block; }
+      .contact a { font-weight: 400; color: #000; }
+
+      /* Sections */
+      .block { display: block; margin-top: 9pt; padding: 0; border: 0; }
+      .block > h2 {
+        margin: 0 0 4pt;
+        padding: 0 0 1.5pt;
+        border-bottom: .8pt solid #000;
+        font-size: 11pt;
+        letter-spacing: .01em;
+        color: #000;
+        break-after: avoid;
+      }
+      .block > h2[data-print] { font-size: 0; }
+      .block > h2[data-print]::after { content: attr(data-print); font-size: 11pt; }
+      .content > p { margin: 0; color: #000; text-align: justify; }
+      .content > p + p { margin-top: 3pt; }
+      h3, h4, .cert h3, .skill-group h3, .project h4 { font-size: 10pt; line-height: inherit; }
+
+      /* Certifications: a plain list, however many there are */
+      .certs { display: block; padding-left: 14pt; list-style: disc; }
+      .cert {
+        display: list-item;
+        padding: 0;
+        border: 0;
+        border-radius: 0;
+        background: none;
+        overflow: visible;
+        transform: none !important;
+        box-shadow: none !important;
+      }
+      .cert::before { content: none; }
+      .cert h3, .cert-meta { display: inline; }
+      .cert h3::before { content: attr(data-print-prefix); }
+      .cert-meta { font-size: inherit; color: #000; }
+      .code { padding: 0; border: 0; background: none; color: #000; }
+      .code::before { content: "("; }
+      .code::after { content: ")"; }
+
+      /* Skills: one line per group */
+      .skill-groups { display: block; }
+      .skill-group { margin: 0 0 1pt; break-inside: avoid; }
+      .skill-group h3 { display: inline; margin: 0; }
+      .skill-group h3::after { content: ": "; }
+      .chips { display: inline; font-size: 0; }
+      .chips li {
+        display: inline;
+        padding: 0;
+        border: 0;
+        border-radius: 0;
+        background: none;
+        font-size: 10pt;
+        font-weight: 400;
+        line-height: inherit;
+        color: #000;
+      }
+      .chips li + li::before { content: ", "; }
+
+      /* Experience */
+      .timeline::before, .job::before { content: none; }
+      .job { padding: 0; }
+      .job + .job { margin-top: 6pt; }
+      .job-head, .edu-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 12pt;
+        break-inside: avoid;
+        break-after: avoid;
+      }
+      .company { margin: 0; font-style: italic; font-weight: 400; color: #000; }
+      .company span { color: inherit; }
+      .dates { font-size: 10pt; font-weight: 700; color: #000; white-space: nowrap; }
+      ul.points { margin: 2pt 0 0; padding-left: 14pt; list-style: disc; color: #000; }
+      ul.points li { margin: 0 0 1pt; padding: 0; break-inside: avoid; }
+      ul.points li::marker { color: #000; }
+      .project { margin-top: 3pt; padding: 0; border: 0; }
+      .project h4 span { font-weight: 400; font-style: italic; color: #000; }
+      .project ul.points { margin-top: 1pt; }
+      .stack { margin: 2pt 0 0; }
+      .stack .label { display: inline; margin: 0; font-size: inherit; letter-spacing: 0; text-transform: none; color: #000; }
+      .stack .label::after { content: ": "; }
+
+      /* Education */
+      .edu-item + .edu-item { margin-top: 4pt; }
+      .edu p { margin: 0; font-style: italic; color: #000; }
     }
   </style>
 </head>
@@ -572,9 +665,17 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
               <a href="mailto:eduardooliveira1995@gmail.com">eduardooliveira1995@gmail.com</a>
             </li>
-            <li>
+            <li class="contact-links">
               <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.75h4V21H3zM9.5 9.75h3.8v1.6h.06c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.77 2.6 4.77 6V21h-4v-5.08c0-1.21-.02-2.77-1.69-2.77-1.69 0-1.95 1.32-1.95 2.68V21h-4z"/></svg>
-              <a href="https://www.linkedin.com/in/eduardo-oliveira-495a42141/" target="_blank" rel="noopener" data-print="linkedin.com/in/eduardo-oliveira-495a42141">LinkedIn</a>
+              <a href="https://www.linkedin.com/in/eduardo-oliveira-495a42141/" target="_blank" rel="noopener"><span class="screen-only">LinkedIn</span><span class="print-only">linkedin.com/in/eduardo-oliveira-495a42141</span></a>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="m9.5 9 1.8 1.8L14.8 7.3"/><path d="M8.5 14 7 22l5-3 5 3-1.5-8"/></svg>
+              <a href="https://www.credly.com/users/eduardo-oliveira.236efa68/badges/credly" target="_blank" rel="noopener"><span class="screen-only">Credly</span><span class="print-only">credly.com/users/eduardo-oliveira.236efa68</span></a>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+              <a href="https://github.com/eduardooliveirak95" target="_blank" rel="noopener"><span class="screen-only">GitHub</span><span class="print-only">github.com/eduardooliveirak95</span></a>
             </li>
           </ul>
         </div>
@@ -592,7 +693,7 @@
       </header>
 
       <section class="block" aria-labelledby="profile-title">
-        <h2 id="profile-title">Profile</h2>
+        <h2 id="profile-title" data-print="Professional summary">Profile</h2>
         <div class="content">
           <p>
             Telecommunications Engineer with <span data-years>5+</span> years of experience across mobile and fixed networks.
@@ -608,7 +709,7 @@
       </section>
 
       <section class="block" aria-labelledby="experience-title">
-        <h2 id="experience-title">Experience</h2>
+        <h2 id="experience-title" data-print="Professional experience">Experience</h2>
         <div class="content">
           <ol class="timeline">
 
@@ -685,8 +786,8 @@
                 <span class="issuer">Microsoft</span>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="m9.5 9 1.8 1.8L14.8 7.3"/><path d="M8.5 14 7 22l5-3 5 3-1.5-8"/></svg>
               </div>
-              <h3>Azure Administrator Associate</h3>
-              <div class="cert-meta"><span class="code">AZ-104</span> Associate</div>
+              <h3 data-print-prefix="Microsoft Certified: ">Azure Administrator Associate</h3>
+              <div class="cert-meta"><span class="code">AZ-104</span> <span class="level">Associate</span></div>
             </li>
             <li class="cert aws">
               <div class="cert-top">
@@ -694,22 +795,22 @@
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="m9.5 9 1.8 1.8L14.8 7.3"/><path d="M8.5 14 7 22l5-3 5 3-1.5-8"/></svg>
               </div>
               <h3>AWS Certified AI Practitioner</h3>
-              <div class="cert-meta"><span class="code">AIF-C01</span> Foundational</div>
+              <div class="cert-meta"><span class="code">AIF-C01</span> <span class="level">Foundational</span></div>
             </li>
             <li class="cert ms">
               <div class="cert-top">
                 <span class="issuer">Microsoft</span>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="m9.5 9 1.8 1.8L14.8 7.3"/><path d="M8.5 14 7 22l5-3 5 3-1.5-8"/></svg>
               </div>
-              <h3>Azure Fundamentals</h3>
-              <div class="cert-meta"><span class="code">AZ-900</span> Fundamentals</div>
+              <h3 data-print-prefix="Microsoft Certified: ">Azure Fundamentals</h3>
+              <div class="cert-meta"><span class="code">AZ-900</span> <span class="level">Fundamentals</span></div>
             </li>
           </ul>
         </div>
       </section>
 
       <section class="block" aria-labelledby="skills-title">
-        <h2 id="skills-title">Skills</h2>
+        <h2 id="skills-title" data-print="Technical skills">Skills</h2>
         <div class="content skill-groups">
           <div class="skill-group">
             <h3>Video &amp; TV platforms</h3>
@@ -761,8 +862,28 @@
       <section class="block" aria-labelledby="education-title">
         <h2 id="education-title">Education</h2>
         <div class="content edu">
-          <h3>Electrical and Computer Engineering</h3>
-          <p>Polytechnic Institute of Setúbal (IPS) · Portugal</p>
+          <div class="edu-item">
+            <div class="edu-head">
+              <h3><span class="print-only">Degree in </span>Electrical and Computer Engineering</h3>
+              <span class="dates print-only">2017 – 2020</span>
+            </div>
+            <p>Polytechnic Institute of Setúbal<span class="screen-only"> (IPS) · Portugal</span></p>
+          </div>
+          <div class="edu-item print-only">
+            <div class="edu-head">
+              <h3>Higher Technical Course in Networking and Systems</h3>
+              <span class="dates">2015 – 2017</span>
+            </div>
+            <p>Polytechnic Institute of Setúbal</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Only in the PDF -->
+      <section class="block print-only" aria-labelledby="languages-title">
+        <h2 id="languages-title">Languages</h2>
+        <div class="content">
+          <p><strong>Portuguese:</strong> Native | <strong>English:</strong> Fluent</p>
         </div>
       </section>
 
@@ -797,10 +918,13 @@
         try { localStorage.setItem("theme", next); } catch (e) {}
       });
 
-      // Save as PDF
+      // Save as PDF (the print stylesheet turns the page into a plain one-column CV)
       document.getElementById("print-btn").addEventListener("click", function () {
         window.print();
       });
+      var pageTitle = document.title;
+      window.addEventListener("beforeprint", function () { document.title = "CV_Eduardo_Oliveira"; });
+      window.addEventListener("afterprint", function () { document.title = pageTitle; });
 
       // Durations and years of experience
       var now = new Date();
